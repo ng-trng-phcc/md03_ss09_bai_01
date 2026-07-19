@@ -1,5 +1,6 @@
 package com.example.hrms.controller;
 
+import com.example.hrms.common.ApiResponse;
 import com.example.hrms.model.dto.DepartmentDTO;
 import com.example.hrms.service.DepartmentService;
 import jakarta.validation.Valid;
@@ -19,8 +20,9 @@ public class DepartmentController {
     private final DepartmentService departmentService;
 
     @PostMapping
-    public ResponseEntity<DepartmentDTO> create(@Valid @RequestBody DepartmentDTO departmentDTO) {
+    public ResponseEntity<ApiResponse<DepartmentDTO>> create(@Valid @RequestBody DepartmentDTO departmentDTO) {
         DepartmentDTO created = departmentService.create(departmentDTO);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+        ApiResponse<DepartmentDTO> response = ApiResponse.success("Phòng ban đã được tạo thành công", created);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 }
